@@ -1,0 +1,69 @@
+# total_cost=int(input('The total cost of the house:'))
+# portion_saved=float(input('Percentage of portion saved:'))
+# annaul_salary=float(input('Annaul salary is:'))
+
+# current_saving=0
+# portion_down_payment=total_cost*0.25
+# month=0
+# r=0.04
+# while current_saving<portion_down_payment:
+#     current_saving+=current_saving*0.04/12+portion_saved*annaul_salary/12
+#     month+=1
+    
+# print(month)
+
+
+
+
+# total_cost=int(input('The total cost of the house:'))
+# portion_saved=float(input('Percentage of portion saved:'))
+# annaul_salary=float(input('Annaul salary is:'))
+# semi_annual_rise=float(input("The persentage of salary rise:"))
+
+# current_saving=0
+# portion_down_payment=total_cost*0.25
+# month=0
+# r=0.04
+# while current_saving<portion_down_payment:
+#     if month%6==0 and month!=0:
+#         annaul_salary+=annaul_salary*semi_annual_rise
+#     current_saving+=current_saving*0.04/12+portion_saved*annaul_salary/12
+#     month+=1
+    
+# print(month)
+
+
+
+
+semi_annual_rise=0.07
+total_cost=1000000
+portion_down_payment=total_cost*0.25
+def saving(portion_saved,annaul_salary):
+    current_saving=0
+    for month in range(36):
+        if month%6==0 and month!=0:
+            annaul_salary+=annaul_salary*semi_annual_rise
+        current_saving+=current_saving*0.04/12+portion_saved*annaul_salary/12
+    return current_saving
+
+run=True
+money=float(input('Annaul salary is:'))
+lower=0
+upper=1
+initial_saving_rate=(upper+lower)/2
+while run:
+    if saving(1,money)<portion_down_payment:
+        print("This is not possible! Because max saving is {:.2f}".format(saving(1,money)))
+        break
+    else:
+        if saving(initial_saving_rate,money)<portion_down_payment and (portion_down_payment-saving(initial_saving_rate,money))>100:
+            lower=initial_saving_rate
+            initial_saving_rate=(upper+lower)/2
+        elif saving(initial_saving_rate,money)>portion_down_payment and saving(initial_saving_rate,money)-portion_down_payment>100:
+            upper=initial_saving_rate
+            initial_saving_rate=(upper+lower)/2
+        else:
+            run=False
+            print(f'The saving rate should set to:{initial_saving_rate:.4f}') 
+
+
